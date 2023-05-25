@@ -5,23 +5,33 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 
 @SpringBootApplication
 @RestController
-public class Main
-{
-    public static void main(String[] args)
-    {
+public class Main {
+    public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
+
     @GetMapping("/")
-    public GreetResponse greet()
-    {
-        return new GreetResponse("Hello");
+    public GreetResponse greet() {
+        GreetResponse  response = new GreetResponse("Hello",
+                List.of("Java", "Golang", "Javascript"),
+                new Person("ALex", 28, 30000));
+        return response;
     }
 
-    //record GreetResponse(String greet){}
+    record Person(String name, int age, double savings){
+
+    }
+    record GreetResponse(String greet,
+                         List<String> favProgrammingLanguages,
+                         Person person)
+    {
+    }
+    /*
     class GreetResponse
     {
         private String greet;
@@ -54,4 +64,6 @@ public class Main
             return greet;
         }
     }
+    */
+
 }
